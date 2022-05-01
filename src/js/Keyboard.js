@@ -4,11 +4,9 @@ import ru from './lang/ru';
 import Key from './Key';
 
 export default class Keyboard {
-//   constructor({ code, letter, shiftLetter }) {
-//     this.code = code;
-//     this.letter = letter;
-//     this.shiftLetter = shiftLetter;
-//   }
+  // constructor() {
+  //   this.keys = [];
+  // }
 
   buildKeyboard(lang) {
     let currentLang;
@@ -17,21 +15,20 @@ export default class Keyboard {
     } else {
       currentLang = ru;
     }
-    // lang === 'en' ? currentLang = en : currentLang = ru;
     this.keyboard = createNode('div', ['keyboard']);
-    // this.letterNode = createNode('p', ['key__letter'], this.letter);
-    // this.shiftLetterNode = createNode('p', ['key__shift-letter'], this.shiftLetter);
-
-    // this.keyWrapper.append(this.shiftLetterNode, this.letterNode);
     currentLang.forEach((key) => {
-      this.keyboard.append(new Key(key).buildKey());
+      const currentKey = new Key(key).buildKey();
+      this.keyboard.append(currentKey);
+      // this.keys.push(currentKey);
     });
+    // console.log(this.keys)
     this.bindEvents();
     return this.keyboard;
   }
 
   // Bind Events
   bindEvents() {
+    // console.log(this.keyboard)
     this.keyboard.addEventListener('mousedown', this.addClassPressed);
     this.keyboard.addEventListener('mouseup', this.removeClassPressed);
     document.addEventListener('keydown', this.addClassPressed);
@@ -39,15 +36,27 @@ export default class Keyboard {
   }
 
   addClassPressed(e) {
-    console.log(e.code) // надо искать кнопку по дата-атр
-    if (e.target.closest('.key')) {
-      e.target.closest('.key').classList.add('pressed');
+    // this.keys.find(key => key.getAttribute('data-key') === e.code)
+    // console.log(e.code); // надо искать кнопку по дата-атр
+
+    // console.log(keys.find(key => key.getAttribute('data-key') == e.code))
+    // console.log(document.querySelectorAll('.key'))
+    if (e.target.closest('.key') || e.code) {
+      const keys = document.querySelectorAll('.key');
+      const pressedKey = e.target.closest('.key')
+      || Array.from(keys).find((key) => key.getAttribute('data-key') === e.code);
+
+      pressedKey.classList.add('pressed');
     }
   }
 
   removeClassPressed(e) {
-    if (e.target.closest('.key')) {
-      e.target.closest('.key').classList.remove('pressed');
+    if (e.target.closest('.key') || e.code) {
+      const keys = document.querySelectorAll('.key');
+      const pressedKey = e.target.closest('.key')
+      || Array.from(keys).find((key) => key.getAttribute('data-key') === e.code);
+
+      pressedKey.classList.remove('pressed');
     }
   }
 }

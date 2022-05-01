@@ -16,5 +16,6 @@ import Keyboard from './js/Keyboard';
 // const keyWaw = new Key(en[20]).buildKey();
 // document.body.append(keyWaw);
 // console.log(keyWaw);
-
-document.body.append(new Keyboard().buildKeyboard('en'));
+const keyboard = new Keyboard();
+document.body.append(keyboard.buildKeyboard('en'));
+// console.log(keyboard.keys)
