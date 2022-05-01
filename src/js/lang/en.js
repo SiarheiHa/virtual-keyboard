@@ -266,7 +266,7 @@ export default [
   },
   {
     code: 'ArrowUp',
-    letter: 'ArrowUp',
+    letter: '↑',
     shiftLetter: null,
   },
   {
@@ -281,7 +281,7 @@ export default [
   },
   {
     code: 'MetaLeft',
-    letter: 'Meta',
+    letter: 'Win',
     shiftLetter: null,
   },
   {
@@ -306,17 +306,17 @@ export default [
   },
   {
     code: 'ArrowLeft',
-    letter: 'ArrowLeft',
+    letter: '←',
     shiftLetter: null,
   },
   {
     code: 'ArrowDown',
-    letter: 'ArrowDown',
+    letter: '↓',
     shiftLetter: null,
   },
   {
     code: 'ArrowRight',
-    letter: 'ArrowRight',
+    letter: '→',
     shiftLetter: null,
   },
 ];

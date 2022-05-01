@@ -1,0 +1,27 @@
+$key-color: #a9a9a9;
+
+body {
+    background-color: blanchedalmond; 
+    // background-image: url('../assets/chilli_vegetables_vegetable_food_agriculture_spicy_icon_220782.svg');
+}
+
+.key {
+    background-color: $key-color;
+    min-width: 3.8%;
+    width: max-content;
+    margin: 0.2%;
+    border-radius: 15%;
+    text-align: center;
+    padding: 1%;
+    &_fn {
+        background-color: darken($key-color,20%);
+    }
+}
+
+.pressed {
+    background-color: lighten($key-color,20%);
+}
+
+.hidden {
+    display: none;
+}

@@ -2,72 +2,72 @@ export default [
   {
     code: 'Backquote',
     letter: 'ё',
-    shiftLetter: null,
+    shiftLetter: 'Ё',
   },
   {
     code: 'Digit1',
     letter: '1',
-    shiftLetter: null,
+    shiftLetter: '!',
   },
   {
     code: 'Digit2',
     letter: '2',
-    shiftLetter: null,
+    shiftLetter: '"',
   },
   {
     code: 'Digit3',
     letter: '3',
-    shiftLetter: null,
+    shiftLetter: '№',
   },
   {
     code: 'Digit4',
     letter: '4',
-    shiftLetter: null,
+    shiftLetter: ';',
   },
   {
     code: 'Digit5',
     letter: '5',
-    shiftLetter: null,
+    shiftLetter: '%',
   },
   {
     code: 'Digit6',
     letter: '6',
-    shiftLetter: null,
+    shiftLetter: ':',
   },
   {
     code: 'Digit7',
     letter: '7',
-    shiftLetter: null,
+    shiftLetter: '?',
   },
   {
     code: 'Digit8',
     letter: '8',
-    shiftLetter: null,
+    shiftLetter: '*',
   },
   {
     code: 'Digit9',
     letter: '9',
-    shiftLetter: null,
+    shiftLetter: '(',
   },
   {
     code: 'Digit0',
     letter: '0',
-    shiftLetter: null,
+    shiftLetter: '(',
   },
   {
     code: 'Minus',
     letter: '-',
-    shiftLetter: null,
+    shiftLetter: '_',
   },
   {
     code: 'Equal',
     letter: '=',
-    shiftLetter: null,
+    shiftLetter: '+',
   },
   {
     code: 'Backslash',
     letter: '\\',
-    shiftLetter: null,
+    shiftLetter: '/',
   },
   {
     code: 'Backspace',
@@ -132,12 +132,12 @@ export default [
   {
     code: 'BracketLeft',
     letter: 'х',
-    shiftLetter: null,
+    shiftLetter: 'Х',
   },
   {
     code: 'BracketRight',
     letter: 'ъ',
-    shiftLetter: null,
+    shiftLetter: 'Ъ',
   },
   {
     code: 'Delete',
@@ -252,21 +252,21 @@ export default [
   {
     code: 'Comma',
     letter: 'б',
-    shiftLetter: null,
+    shiftLetter: 'Б',
   },
   {
     code: 'Period',
     letter: 'ю',
-    shiftLetter: null,
+    shiftLetter: 'Ю',
   },
   {
     code: 'Slash',
     letter: '.',
-    shiftLetter: null,
+    shiftLetter: ',',
   },
   {
     code: 'ArrowUp',
-    letter: 'ArrowUp',
+    letter: '↑',
     shiftLetter: null,
   },
   {
@@ -281,7 +281,7 @@ export default [
   },
   {
     code: 'MetaLeft',
-    letter: 'Meta',
+    letter: 'Win',
     shiftLetter: null,
   },
   {
@@ -306,17 +306,17 @@ export default [
   },
   {
     code: 'ArrowLeft',
-    letter: 'ArrowLeft',
+    letter: '←',
     shiftLetter: null,
   },
   {
     code: 'ArrowDown',
-    letter: 'ArrowDown',
+    letter: '↓',
     shiftLetter: null,
   },
   {
     code: 'ArrowRight',
-    letter: 'ArrowRight',
+    letter: '→',
     shiftLetter: null,
   },
 ];

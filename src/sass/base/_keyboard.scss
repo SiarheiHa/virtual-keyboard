@@ -1,0 +1,11 @@
+.keyboard {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 750px;
+
+    //нужен медиазапрос на размер шрифта
+
+    max-width: 96vh;
+    font-size: 2vw;
+}
