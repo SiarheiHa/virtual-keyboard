@@ -16,6 +16,9 @@ export default class Key {
     this.keyWrapper.setAttribute('data-key', this.code);
     this.letterNode = createNode('p', ['key__letter'], this.letter);
     this.shiftLetterNode = createNode('p', ['key__shift-letter', 'hidden'], this.shiftLetter);
+    if (this.isFnKey) {
+      this.shiftLetterNode.innerHTML = this.letter;
+    }
 
     this.keyWrapper.append(this.shiftLetterNode, this.letterNode);
     return this.keyWrapper;

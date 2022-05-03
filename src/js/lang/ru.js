@@ -197,12 +197,12 @@ export default [
   {
     code: 'Semicolon',
     letter: 'ж',
-    shiftLetter: null,
+    shiftLetter: 'Ж',
   },
   {
     code: 'Quote',
     letter: 'э',
-    shiftLetter: null,
+    shiftLetter: 'Э',
   },
   {
     code: 'Enter',

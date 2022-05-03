@@ -1,33 +1,38 @@
-const path = require("path");
+const path = require('path');
 // видео Ворожун
 // const webpack = require("webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // очищает папку dist перед сборкой нового бандла
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // стили в отдельный файл
 
 module.exports = {
-  devtool: "source-map", // mapping on
-  // watch: true, // вотчинг можно прописать в плагинах можно здесь но если есть вебсервер то и не надо
-  entry: "./src/index.js",
+  devtool: 'source-map', // mapping on
+  // watch: true,
+  // вотчинг можно прописать в плагинах можно здесь но если есть вебсервер то и не надо
+  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "script.js",
-    assetModuleFilename: 'assets/[name][ext]'
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'script.js',
+    assetModuleFilename: 'assets/[name][ext]',
   },
   plugins: [
     new HtmlWebpackPlugin({
       // title: 'keyB'
-      template: "./src/index.html",
+      template: './src/index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'style.css',
     }),
     new CleanWebpackPlugin(),
-],
+  ],
   module: {
     rules: [
       {
         test: /\.scss$/i,
         use: [
-          "style-loader",
-          "css-loader",
-          "sass-loader",  
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
         ],
       },
       {
@@ -46,5 +51,5 @@ module.exports = {
     // compress: true,
     // port: 9000,
   },
-  
+
 };

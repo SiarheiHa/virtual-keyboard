@@ -13,8 +13,11 @@ body {
     border-radius: 15%;
     text-align: center;
     padding: 1%;
+    cursor: pointer;
     &_fn {
         background-color: darken($key-color,20%);
+        min-width: 10%;
+        flex-grow: 1;
     }
 }
 
