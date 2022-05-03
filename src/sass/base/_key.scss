@@ -7,7 +7,7 @@ body {
 
 .key {
     background-color: $key-color;
-    min-width: 3.8%;
+    min-width: 4%;
     width: max-content;
     margin: 0.2%;
     border-radius: 15%;
@@ -16,8 +16,38 @@ body {
     cursor: pointer;
     &_fn {
         background-color: darken($key-color,20%);
-        min-width: 10%;
+        min-width: 7%;
         flex-grow: 1;
+    }
+    // Enter
+    &:nth-child(42) {
+        width: 14%;
+    }
+    // LeftShift
+    &:nth-child(43) {
+        width: 14%;
+        // min-width: 1%;
+    }
+    // //up
+    // &:nth-child(54) {
+    //     background-color: rgb(13, 255, 0);
+    //     width: 1%;
+    //     min-width: 3.8%;
+    // }
+    &:nth-child(n+54) {
+        // width: 1%;
+        min-width: 4.8%;
+    }
+    &:nth-child(55) {
+        flex-grow: 0;
+    }
+    &:nth-child(55) {
+        flex-grow: 0;
+        min-width: 3.8%;
+    }
+    &:nth-child(59) {
+        // width: 1%;
+        min-width: 39.8%;
     }
 }
 

@@ -11,6 +11,9 @@ export default class Keyboard {
   }
 
   buildKeyboard(lang) {
+    this.wrapper = createNode('div', ['wrapper']);
+    this.title = createNode('h1', ['title'], 'For change language press Shift + Alt');
+    this.textArea = createNode('textarea', ['textarea']);
     let currentLang;
     if (lang === 'en') {
       currentLang = en;
@@ -26,7 +29,8 @@ export default class Keyboard {
     });
 
     // console.log(this.keys)
-    document.body.append(this.keyboard);
+    this.wrapper.append(this.title, this.textArea, this.keyboard);
+    document.body.append(this.wrapper);
     this.bindEvents();
     // console.log(this);
     return this;

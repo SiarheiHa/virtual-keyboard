@@ -71,7 +71,7 @@ export default [
   },
   {
     code: 'Backspace',
-    letter: 'Backspace',
+    letter: '←',
     shiftLetter: null,
   },
   {
@@ -276,7 +276,7 @@ export default [
   },
   {
     code: 'ControlLeft',
-    letter: 'Control',
+    letter: 'Ctrl',
     shiftLetter: null,
   },
   {
@@ -296,12 +296,12 @@ export default [
   },
   {
     code: 'AltRight',
-    letter: 'AltGraph',
+    letter: 'Alt',
     shiftLetter: null,
   },
   {
     code: 'ControlRight',
-    letter: 'Control',
+    letter: 'Ctrl',
     shiftLetter: null,
   },
   {
