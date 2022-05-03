@@ -52,7 +52,7 @@ export default [
   {
     code: 'Digit0',
     letter: '0',
-    shiftLetter: '(',
+    shiftLetter: ')',
   },
   {
     code: 'Minus',

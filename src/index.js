@@ -3,6 +3,6 @@ import Keyboard from './js/Keyboard';
 
 
 const keyboard = new Keyboard();
-let lang = 'en';
+let lang = 'ru';
 keyboard.buildKeyboard(lang);
-// console.log(keyboard.keys)
+// console.log(keyboard)
