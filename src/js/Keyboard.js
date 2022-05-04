@@ -41,12 +41,18 @@ export default class Keyboard {
   buildKeys() {
     this.keyboard.innerHTML = '';
     this.keys = [];
+    // получить язык при первом запуске
     if (!this.lang) this.getLang();
     this.lang.forEach((key) => {
       const currentKey = new Key(key).buildKey();
-      this.keyboard.append(currentKey);
       this.keys.push(currentKey);
     });
+    // если активен капс, то вешаем ему класс и показываем заглавные буквы
+    if (this.isCaps) {
+      this.showBigLetter();
+      this.keys.find((key) => key.dataset.key === 'CapsLock').classList.add('active');
+    }
+    this.keyboard.append(...this.keys);
   }
 
   bindEvents() {
@@ -61,14 +67,17 @@ export default class Keyboard {
   }
 
   handleDown(e) {
+    // console.log(e)
     if (e.repeat === true) return;
     const { type, target, code } = e;
-    // e.preventDefault()
-    // console.log(e);
+    // для событий кнопки отключить поведение по умолчанию
+    if (type === 'keydown') e.preventDefault();
     const pressedKey = target.closest('.key') // нажатая кнопка
     || this.keys.find((key) => key.dataset.key === code);
     // || document.querySelector(`[data-key=${e.code}]`);
     if (pressedKey) {
+      // фокус на поле для текста
+      this.textArea.focus();
       // добавление класса нажатия на кнопку
       pressedKey.classList.add('pressed');
       // проверка на нажатие капса
@@ -76,9 +85,11 @@ export default class Keyboard {
         if (!this.isCaps) {
           this.showBigLetter();
           this.isCaps = true;
+          pressedKey.classList.add('active');
         } else {
           this.showSmallLetter();
           this.isCaps = false;
+          pressedKey.classList.remove('active');
         }
       }
       // проверка на нажатие шифта
@@ -90,21 +101,19 @@ export default class Keyboard {
           this.isShift = true;
         } else {
           this.showBigLetter();
-          this.isShift = false;
+          this.isShift = true;
         }
       }
-      // проверка на нажатие Alt
-      if (e.ctrlKey === true && e.shiftKey === true
-        || pressedKey.dataset.key === 'MetaLeft') {
-        this.changeLang();
+
+      if ((e.ctrlKey === true && e.shiftKey === true)
+        || (pressedKey.dataset.key === 'MetaLeft' && type === 'mousedown')) {
+        // if (e.repeat === true) return;
+        setTimeout(this.changeLang.bind(this), 100);
+
+        // this.changeLang();
       }
 
-      // console.log(this.isCaps)
-
-    // // если капс был нажат нужно менять классы у элементов кнопкок всей клавиатуры
-    // if (this.isCaps || this.isShift) {
-    //   this.showKeysInCaps();
-    // }
+      this.print(pressedKey.dataset.key);
     }
   }
 
@@ -119,7 +128,7 @@ export default class Keyboard {
         this.hideShiftLetter();
         if (this.isCaps) {
           this.showBigLetter();
-          this.isShift = true;
+          this.isShift = false;
         } else {
           this.showSmallLetter();
           this.isShift = false;
@@ -180,5 +189,27 @@ export default class Keyboard {
     else { this.lang = ru; }
     this.buildKeys();
     this.setLang();
+  }
+
+  print(code) {
+    // console.log(
+    //   this.lang.find((key) => key.code === code).letter,
+    // );
+    const currentKeyObj = this.lang.find((key) => key.code === code);
+    if (currentKeyObj.shiftLetter === null) return;
+
+    let letter;
+    if (this.isShift) {
+      letter = currentKeyObj.shiftLetter;
+    } else {
+      letter = currentKeyObj.letter;
+    }
+    // console.log(`isShift = ${this.isShift} isCaps =${this.isCaps}`);
+
+    if (this.isCaps && this.isShift) letter = letter.toLowerCase();
+    else if (this.isCaps) letter = letter.toUpperCase();
+    else if (this.isShift) letter = letter.toUpperCase();
+
+    this.textArea.value += letter;
   }
 }

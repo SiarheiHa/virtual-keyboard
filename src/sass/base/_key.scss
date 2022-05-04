@@ -1,4 +1,5 @@
 $key-color: #a9a9a9;
+$active-color: #dc9c9c;
 
 body {
     background-color: blanchedalmond; 
@@ -48,6 +49,10 @@ body {
 
 .pressed {
     background-color: lighten($key-color,20%);
+}
+
+.active {
+    background-color: $active-color;
 }
 
 .hidden {
