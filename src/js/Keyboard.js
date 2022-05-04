@@ -9,20 +9,29 @@ export default class Keyboard {
     this.isShift = false;
   }
 
-  buildKeyboard(lang) {
-    this.wrapper = createNode('div', ['wrapper']);
-    this.title = createNode('h1', ['title'], 'For change language press Shift + Alt');
-    this.textArea = createNode('textarea', ['textarea']);
-    if (lang === 'en') {
-      this.lang = en;
+  getLang() {
+    const lang = localStorage.getItem('lang');
+    if (lang === 'ru') this.lang = ru;
+    else { this.lang = en; }
+  }
+
+  setLang() {
+    if (this.lang === ru) {
+      localStorage.setItem('lang', 'ru');
     } else {
-      this.lang = ru;
+      localStorage.setItem('lang', 'en');
     }
+  }
+
+  buildKeyboard() {
+    this.wrapper = createNode('div', ['wrapper']);
+    this.title = createNode('h1', ['title'], 'For change language press Ctrl + Shift');
+    this.textArea = createNode('textarea', ['textarea']);
+
     this.keyboard = createNode('div', ['keyboard']);
 
     this.buildKeys();
 
-    // console.log(this.keys)
     this.wrapper.append(this.title, this.textArea, this.keyboard);
     document.body.append(this.wrapper);
     this.bindEvents();
@@ -30,7 +39,9 @@ export default class Keyboard {
   }
 
   buildKeys() {
+    this.keyboard.innerHTML = '';
     this.keys = [];
+    if (!this.lang) this.getLang();
     this.lang.forEach((key) => {
       const currentKey = new Key(key).buildKey();
       this.keyboard.append(currentKey);
@@ -38,7 +49,6 @@ export default class Keyboard {
     });
   }
 
-  // Bind Events
   bindEvents() {
     // console.log(this)
     // .bind - привязка контекста
@@ -54,7 +64,7 @@ export default class Keyboard {
     if (e.repeat === true) return;
     const { type, target, code } = e;
     // e.preventDefault()
-    console.log(e);
+    // console.log(e);
     const pressedKey = target.closest('.key') // нажатая кнопка
     || this.keys.find((key) => key.dataset.key === code);
     // || document.querySelector(`[data-key=${e.code}]`);
@@ -84,8 +94,9 @@ export default class Keyboard {
         }
       }
       // проверка на нажатие Alt
-      if (e.altKey === true && e.shiftKey === true) {
-        console.log('change lang');
+      if (e.ctrlKey === true && e.shiftKey === true
+        || pressedKey.dataset.key === 'MetaLeft') {
+        this.changeLang();
       }
 
       // console.log(this.isCaps)
@@ -162,5 +173,12 @@ export default class Keyboard {
       key.firstChild.classList.add('hidden');
       key.lastChild.classList.remove('hidden');
     });
+  }
+
+  changeLang() {
+    if (this.lang === ru) this.lang = en;
+    else { this.lang = ru; }
+    this.buildKeys();
+    this.setLang();
   }
 }

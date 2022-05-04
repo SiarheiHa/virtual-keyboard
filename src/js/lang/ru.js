@@ -281,7 +281,7 @@ export default [
   },
   {
     code: 'MetaLeft',
-    letter: 'Win',
+    letter: 'ru',
     shiftLetter: null,
   },
   {
