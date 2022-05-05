@@ -1,22 +1,23 @@
-$key-color: #a9a9a9;
-$active-color: #dc9c9c;
+$key-color: #f3f4f8;
+$active-color: #ffcaca;
+$lang-color: #f3f4f8;
+$fn-color: #dddee2;
 
 body {
     background-color: blanchedalmond; 
-    // background-image: url('../assets/chilli_vegetables_vegetable_food_agriculture_spicy_icon_220782.svg');
 }
-
 .key {
     background-color: $key-color;
-    min-width: 4%;
+    min-width: 3.9%;
     width: max-content;
     margin: 0.2%;
     border-radius: 15%;
     text-align: center;
     padding: 1%;
+    transition: all 0.3s;
     cursor: pointer;
     &_fn {
-        background-color: darken($key-color,20%);
+        background-color: $fn-color;
         min-width: 7%;
         flex-grow: 1;
     }
@@ -40,21 +41,20 @@ body {
     }
     //lang
     &:nth-child(57) {
-        background-color: #35696c;
+        background-color: $lang-color;
     }
     &:nth-child(59) {
         min-width: 39.8%;
     }
 }
-
 .pressed {
     background-color: lighten($key-color,20%);
+    box-shadow: 0 0 14px darken($active-color, 20%);
+    color: darken($active-color, 20%);
 }
-
 .active {
     background-color: $active-color;
 }
-
 .hidden {
     display: none;
 }

@@ -25,14 +25,15 @@ export default class Keyboard {
 
   buildKeyboard() {
     this.wrapper = createNode('div', ['wrapper']);
-    this.title = createNode('h1', ['title'], 'For change language press Ctrl + Shift');
+    this.title = createNode('h1', ['title'], 'To change the language, press Ctrl + Shift or click on the language change key');
+    this.subtitle = createNode('h2', ['subtitle'], 'The keyboard was created in Windows');
     this.textArea = createNode('textarea', ['textarea']);
 
     this.keyboard = createNode('div', ['keyboard']);
 
     this.buildKeys();
 
-    this.wrapper.append(this.title, this.textArea, this.keyboard);
+    this.wrapper.append(this.title, this.subtitle, this.textArea, this.keyboard);
     document.body.append(this.wrapper);
     this.bindEvents();
     return this;
@@ -67,17 +68,18 @@ export default class Keyboard {
   }
 
   handleDown(e) {
-    // console.log(e)
-    if (e.repeat === true) return;
     const { type, target, code } = e;
-    // для событий кнопки отключить поведение по умолчанию
-    if (type === 'keydown') e.preventDefault();
     const pressedKey = target.closest('.key') // нажатая кнопка
     || this.keys.find((key) => key.dataset.key === code);
-    // || document.querySelector(`[data-key=${e.code}]`);
+    // для событий кнопки отключить поведение по умолчанию
+    if (type === 'keydown') e.preventDefault();
+    if (e.repeat === true && !pressedKey.dataset.key.match(/Backspace|Delete|Arrow/)) {
+      return;
+    }
+
+    // фокус на поле для текста
+    this.textArea.focus();
     if (pressedKey) {
-      // фокус на поле для текста
-      this.textArea.focus();
       // добавление класса нажатия на кнопку
       pressedKey.classList.add('pressed');
       // проверка на нажатие капса
@@ -91,6 +93,7 @@ export default class Keyboard {
           this.isCaps = false;
           pressedKey.classList.remove('active');
         }
+        return;
       }
       // проверка на нажатие шифта
       if (pressedKey.dataset.key === 'ShiftLeft'
@@ -107,19 +110,19 @@ export default class Keyboard {
 
       if ((e.ctrlKey === true && e.shiftKey === true)
         || (pressedKey.dataset.key === 'MetaLeft' && type === 'mousedown')) {
-        // if (e.repeat === true) return;
         setTimeout(this.changeLang.bind(this), 100);
-
-        // this.changeLang();
       }
 
-      this.print(pressedKey.dataset.key);
+      if (pressedKey.dataset.key.match(/Backquote|Digit|Minus|Equal|Comma|Backslash|Backspace|Tab|Delete|Key|Enter|Semicolon|Bracket|Period|Slash|Quote|Arrow|Space/)) {
+        this.print(pressedKey.dataset.key);
+      }
     }
   }
 
   handleUp(e) {
     const pressedKey = e.target.closest('.key')
     || this.keys.find((key) => key.dataset.key === e.code);
+    this.textArea.focus();
     if (pressedKey) {
       pressedKey.classList.remove('pressed');
       // проверка на нажатие шифта
@@ -192,24 +195,58 @@ export default class Keyboard {
   }
 
   print(code) {
-    // console.log(
-    //   this.lang.find((key) => key.code === code).letter,
-    // );
     const currentKeyObj = this.lang.find((key) => key.code === code);
-    if (currentKeyObj.shiftLetter === null) return;
+
+    let position = this.textArea.selectionStart;
+    const head = this.textArea.value.slice(0, position);
+    const tail = this.textArea.value.slice(position);
+    // console.log(position, head, tail);
 
     let letter;
-    if (this.isShift) {
-      letter = currentKeyObj.shiftLetter;
-    } else {
-      letter = currentKeyObj.letter;
-    }
     // console.log(`isShift = ${this.isShift} isCaps =${this.isCaps}`);
-
-    if (this.isCaps && this.isShift) letter = letter.toLowerCase();
-    else if (this.isCaps) letter = letter.toUpperCase();
-    else if (this.isShift) letter = letter.toUpperCase();
-
-    this.textArea.value += letter;
+    switch (code) {
+      case 'ArrowLeft': {
+        if (position > 0)position -= 1;
+        this.textArea.setSelectionRange(position, position);
+        return;
+      }
+      case 'ArrowRight': {
+        if (position <= this.textArea.value.length - 1)position += 1;
+        this.textArea.setSelectionRange(position, position);
+        return;
+      }
+      case 'Backspace': {
+        this.textArea.value = `${head.slice(0, -1)}${tail}`;
+        if (position > 0) this.textArea.setSelectionRange(position - 1, position - 1);
+        else (this.textArea.setSelectionRange(0, 0));
+        return;
+      }
+      case 'Delete': {
+        this.textArea.value = `${head}${tail.slice(1)}`;
+        this.textArea.setSelectionRange(position, position);
+        return;
+      }
+      case 'Enter':
+        letter = '\n';
+        break;
+      case 'Tab':
+        letter = '\t';
+        break;
+      case 'Space':
+        letter = ' ';
+        break;
+      default: {
+        if (this.isShift) {
+          letter = currentKeyObj.shiftLetter;
+        } else {
+          letter = currentKeyObj.letter;
+        }
+        if (this.isCaps && this.isShift) letter = letter.toLowerCase();
+        else if (this.isCaps) letter = letter.toUpperCase();
+        else if (this.isShift) letter = letter.toUpperCase();
+      }
+    }
+    this.textArea.value = `${head}${letter}${tail}`;
+    this.textArea.setSelectionRange(position + 1, position + 1);
   }
 }
