@@ -295,11 +295,6 @@ export default [
     shiftLetter: null,
   },
   {
-    code: 'AltRight',
-    letter: 'Alt',
-    shiftLetter: null,
-  },
-  {
     code: 'ControlRight',
     letter: 'Ctrl',
     shiftLetter: null,

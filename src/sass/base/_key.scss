@@ -4,7 +4,7 @@ $lang-color: #f3f4f8;
 $fn-color: #dddee2;
 
 body {
-    background-color: blanchedalmond; 
+    background-color: $key-color; 
 }
 .key {
     background-color: $key-color;
@@ -32,12 +32,14 @@ body {
     &:nth-child(n+54) {
         min-width: 4.8%;
     }
-    &:nth-child(55) {
+    &:nth-child(54) {
+        min-width: 5%;
         flex-grow: 0;
     }
     &:nth-child(55) {
         flex-grow: 0;
         min-width: 3.8%;
+        width: 5.5%;
     }
     //lang
     &:nth-child(57) {
