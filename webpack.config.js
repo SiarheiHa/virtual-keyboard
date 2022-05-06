@@ -1,6 +1,5 @@
 const path = require('path');
-// видео Ворожун
-// const webpack = require("webpack");
+// видео Ворожун : const webpack = require("webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // очищает папку dist перед сборкой нового бандла
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // стили в отдельный файл

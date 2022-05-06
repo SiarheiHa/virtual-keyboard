@@ -4,6 +4,7 @@ $lang-color: #f3f4f8;
 $fn-color: #dddee2;
 
 body {
+    font-family: sans-serif;
     background-color: $key-color; 
 }
 .key {
@@ -53,6 +54,7 @@ body {
     background-color: lighten($key-color,20%);
     box-shadow: 0 0 14px darken($active-color, 20%);
     color: darken($active-color, 20%);
+    border-radius: 33%;
 }
 .active {
     background-color: $active-color;
