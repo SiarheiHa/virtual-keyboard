@@ -28,7 +28,6 @@ export default class Keyboard {
     this.title = createNode('h1', ['title'], 'To change the language, press Ctrl + Shift or click on the language change key');
     this.subtitle = createNode('h2', ['subtitle'], 'The keyboard was created in Windows');
     this.textArea = createNode('textarea', ['textarea']);
-
     this.keyboard = createNode('div', ['keyboard']);
 
     this.buildKeys();
@@ -48,19 +47,11 @@ export default class Keyboard {
       const currentKey = new Key(key).buildKey();
       this.keys.push(currentKey);
     });
-    // если активен капс, то вешаем ему класс и показываем заглавные буквы
-    if (this.isCaps) {
-      this.showBigLetter();
-      this.keys.find((key) => key.dataset.key === 'CapsLock').classList.add('active');
-    }
     this.keyboard.append(...this.keys);
   }
 
   bindEvents() {
-    // console.log(this)
-    // .bind - привязка контекста
     document.addEventListener('mousedown', this.handleDown.bind(this));
-    // document.addEventListener('mousedown', (event) => this.handleDown(event));
     document.addEventListener('mouseup', this.handleUp.bind(this));
     document.addEventListener('keydown', this.handleDown.bind(this));
     document.addEventListener('keyup', this.handleUp.bind(this));
@@ -76,7 +67,6 @@ export default class Keyboard {
     if (e.repeat === true && !pressedKey.dataset.key.match(/Backspace|Delete|Arrow/)) {
       return;
     }
-
     // фокус на поле для текста
     this.textArea.focus();
     if (pressedKey) {
@@ -107,12 +97,12 @@ export default class Keyboard {
           this.isShift = true;
         }
       }
-
+      // смена языка
       if ((e.ctrlKey === true && e.shiftKey === true)
         || (pressedKey.dataset.key === 'MetaLeft' && type === 'mousedown')) {
         setTimeout(this.changeLang.bind(this), 100);
       }
-
+      // печать
       if (pressedKey.dataset.key.match(/Backquote|Digit|Minus|Equal|Comma|Backslash|Backspace|Tab|Delete|Key|Enter|Semicolon|Bracket|Period|Slash|Quote|Arrow|Space/)) {
         this.print(pressedKey.dataset.key);
       }
@@ -142,19 +132,12 @@ export default class Keyboard {
 
   showBigLetter() {
     this.keys.forEach((key) => {
-      // console.log(key.firstChild.innerText.toUpperCase())
       const currentKey = key;
       if (!currentKey.classList.contains('key_fn')) {
         currentKey.firstChild.innerText = currentKey.firstChild.innerText.toUpperCase();
         currentKey.lastChild.innerText = currentKey.lastChild.innerText.toUpperCase();
       }
-      // key.firstChild.classList.remove('hidden');
-      // key.lastChild.classList.add('hidden');
     });
-    // const shiftLetters = document.querySelectorAll('.key__shift-letter');
-    // const smallLetters = document.querySelectorAll('.key__letter');
-    // shiftLetters.forEach((letter) => letter.classList.remove('hidden'));
-    // smallLetters.forEach((letter) => letter.classList.add('hidden'));
   }
 
   showSmallLetter() {
@@ -164,13 +147,7 @@ export default class Keyboard {
         currentKey.firstChild.innerText = currentKey.firstChild.innerText.toLowerCase();
         currentKey.lastChild.innerText = currentKey.lastChild.innerText.toLowerCase();
       }
-      // key.firstChild.classList.add('hidden');
-      // key.lastChild.classList.remove('hidden');
     });
-    // const shiftLetters = document.querySelectorAll('.key__shift-letter');
-    // const smallLetters = document.querySelectorAll('.key__letter');
-    // shiftLetters.forEach((letter) => letter.classList.add('hidden'));
-    // smallLetters.forEach((letter) => letter.classList.remove('hidden'));
   }
 
   showShiftLetter() {
@@ -190,7 +167,14 @@ export default class Keyboard {
   changeLang() {
     if (this.lang === ru) this.lang = en;
     else { this.lang = ru; }
-    this.buildKeys();
+
+    this.keys.forEach((key) => {
+      const currentKeyObj = this.lang.find((keyObj) => keyObj.code === key.dataset.key);
+      const currentKey = key;
+      currentKey.lastChild.innerText = currentKeyObj.letter;
+      currentKey.firstChild.innerText = currentKeyObj.shiftLetter || currentKeyObj.letter;
+    });
+    if (this.isCaps && this.isShift) this.showSmallLetter();
     this.setLang();
   }
 
@@ -200,10 +184,8 @@ export default class Keyboard {
     let position = this.textArea.selectionStart;
     const head = this.textArea.value.slice(0, position);
     const tail = this.textArea.value.slice(position);
-    // console.log(position, head, tail);
 
     let letter;
-    // console.log(`isShift = ${this.isShift} isCaps =${this.isCaps}`);
     switch (code) {
       case 'ArrowLeft': {
         if (position > 0)position -= 1;
