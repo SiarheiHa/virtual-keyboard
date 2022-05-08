@@ -1,0 +1,90 @@
+/*!**************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/sass/style.scss ***!
+  \**************************************************************************************************************/
+.wrapper {
+  margin: 0 auto;
+  width: 770px;
+  text-align: center;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #f3f4f8;
+}
+
+.key {
+  background-color: #f3f4f8;
+  min-width: 3.9%;
+  width: max-content;
+  margin: 0.2%;
+  border-radius: 15%;
+  text-align: center;
+  padding: 1%;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.key_fn {
+  background-color: #dddee2;
+  min-width: 7%;
+  flex-grow: 1;
+}
+.key:nth-child(42) {
+  width: 14%;
+}
+.key:nth-child(43) {
+  width: 14%;
+}
+.key:nth-child(n+54) {
+  min-width: 4.8%;
+}
+.key:nth-child(54) {
+  min-width: 5%;
+  flex-grow: 0;
+}
+.key:nth-child(55) {
+  flex-grow: 0;
+  min-width: 3.8%;
+  width: 5.5%;
+}
+.key:nth-child(57) {
+  background-color: #f3f4f8;
+}
+.key:nth-child(59) {
+  min-width: 39.8%;
+}
+
+.pressed {
+  background-color: white;
+  box-shadow: 0 0 14px #ff6464;
+  color: #ff6464;
+  border-radius: 33%;
+}
+
+.active {
+  background-color: #ffcaca;
+}
+
+.hidden {
+  display: none;
+}
+
+.keyboard {
+  margin: 1rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  width: 750px;
+  background-color: #a7a7a7;
+  font-size: 1.2rem;
+  line-height: 0%;
+  border-radius: 10px;
+  border: 4px solid #a7a7a7;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 14rem;
+  font-size: 1.5rem;
+  border-radius: 10px;
+}
+
+/*# sourceMappingURL=style.css.map*/
