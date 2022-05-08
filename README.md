@@ -1,7 +1,7 @@
 Добрый день, проверяющий мой таск студент!
 
 вот ссылка на деплой
-https://siarheiha.github.io/virtual-keyboard/keyboard/
+https://siarheiha.github.io/virtual-keyboard
 
 а вот мой дискорд SiarheiHa#3518
 если будут какие-то вопросы пиши в любое время
